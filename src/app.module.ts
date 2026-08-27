@@ -1,28 +1,26 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProcessesModule } from './processes/processes.module';
+import { ExecutionsModule } from './executions/executions.module';
 
-type SupportedDbTypes = 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mongodb' | 'oracle';
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-        TypeOrmModule.forRootAsync({
+        MongooseModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
-                type: configService.get<SupportedDbTypes>('DB_TYPE') ?? 'mysql',
-                host: configService.get<string>('DB_HOST') ?? 'localhost',
-                port: configService.get<number>('DB_PORT') ?? 5432,
-                username: configService.get<string>('DB_USERNAME') ?? 'root',
-                password: configService.get<string>('DB_PASSWORD') ?? 'root',
-                database: configService.get<string>('DB_DATABASE') ?? 'test',
-                entities: [__dirname + '/**/*.entity{.ts,.js}'],
-                synchronize: configService.get<boolean>('DB_SYNCHRONIZE') ?? false,
+                uri:
+                    configService.get<string>('MONGO_URI') ??
+                    'mongodb://root:root@localhost:27017/bioprocess?authSource=admin',
             }),
-        })
+        }),
+        ProcessesModule,
+        ExecutionsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
