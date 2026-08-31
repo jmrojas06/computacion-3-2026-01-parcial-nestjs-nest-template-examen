@@ -19,6 +19,11 @@ export class ProcessesService {
         return this.processModel.find().exec();
     }
 
+    // --- AYUDAS PARCIAL: descomentar si te piden paginación/filtros ---
+    // async findAllPaginated(page = 1, limit = 10) { const skip = (page-1)*limit; const [data,total]=await Promise.all([this.processModel.find().skip(skip).limit(limit).exec(), this.processModel.countDocuments().exec()]); return {data,total,page,limit,totalPages: Math.ceil(total/limit)}; }
+    // async findAllFiltered(query: {state?:string; search?:string}) { const filter:any={}; if(query.state) filter.state=query.state; if(query.search) filter.name={$regex:query.search,$options:'i'}; return this.processModel.find(filter).sort({createdAt:-1}).exec(); }
+    // --- VER src/helpers/pagination.example.ts y filter.example.ts ---
+
     async findOne(id: string): Promise<Process> {
         const doc = await this.processModel.findById(id).exec();
         if (!doc) throw new NotFoundException(`Process ${id} not found`);
