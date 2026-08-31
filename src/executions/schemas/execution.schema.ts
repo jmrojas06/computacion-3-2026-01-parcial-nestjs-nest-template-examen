@@ -38,3 +38,8 @@ export class Execution {
 }
 
 export const ExecutionSchema = SchemaFactory.createForClass(Execution);
+
+// AYUDAS PARCIAL:
+// - Populate: .populate('processId') en service (ver filter.example.ts)
+// - TypeORM: ver typeorm-process.entity.example.ts
+// - Si te piden índice: @Prop({type: Types.ObjectId, ref: Process.name, required:true, index:true})

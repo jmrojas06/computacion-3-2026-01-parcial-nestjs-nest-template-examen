@@ -1,3 +1,5 @@
+// AYUDAS PARCIAL: si te piden SQL comenta Mongoose y descomenta TypeORM (ver src/helpers/app-module-typeorm.example.ts)
+// import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
