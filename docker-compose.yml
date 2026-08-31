@@ -12,5 +12,20 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  # AYUDAS PARCIAL: Si te piden Postgres/SQL descomenta este bloque y comenta mongo arriba
+  # Ver src/helpers/app-module-typeorm.example.ts para config completa
+  # db:
+  #   image: postgres:16
+  #   container_name: postgres-db-1
+  #   environment:
+  #     POSTGRES_USER: ${DB_USERNAME:-postgres}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+  #     POSTGRES_DB: ${DB_DATABASE:-mydatabase}
+  #   ports:
+  #     - "${DB_PORT:-5433}:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
 volumes:
   mongo_data:
+  # postgres_data: # descomentar si usas postgres

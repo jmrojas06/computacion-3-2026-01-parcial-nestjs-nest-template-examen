@@ -32,12 +32,16 @@ export class ExecutionsService {
         const doc = await this.executionModel.findById(id).exec();
         if (!doc) throw new NotFoundException(`Execution ${id} not found`);
         return doc;
+        // AYUDA: si te piden populate -> return this.executionModel.findById(id).populate('processId').exec();
     }
 
     async findByProcessId(processId: string): Promise<Execution[]> {
         const exists = await this.processModel.exists({ _id: processId });
         if (!exists) throw new NotFoundException(`Process ${processId} not found`);
         return this.executionModel.find({ processId: new Types.ObjectId(processId) }).exec();
+        // AYUDAS: para paginación -> .skip((page-1)*limit).limit(limit)
+        // para populate -> .populate('processId')
+        // para filtro -> const filter={processId: new Types.ObjectId(processId), status: query.status}
     }
 
     async update(id: string, updateDto: UpdateExecutionDto): Promise<Execution> {

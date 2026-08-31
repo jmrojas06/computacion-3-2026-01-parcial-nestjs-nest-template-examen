@@ -33,3 +33,9 @@ export class Process {
 }
 
 export const ProcessSchema = SchemaFactory.createForClass(Process);
+
+// AYUDAS PARCIAL (ver src/helpers/):
+// - Si te piden validación de rangos: @Prop() targetPH -> añadir @Min/@Max en DTO (ver extra-validations.example.ts)
+// - Si te piden TypeORM/SQL: ver typeorm-process.entity.example.ts
+// - Si te piden softDelete: descomentar @Prop({default:false}) isDeleted en helpers
+// - Si te piden índice único: @Prop({unique:true}) name
